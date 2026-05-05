@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-50: #f0f7ff;
+  --color-brand-100: #e0effe;
+  --color-brand-200: #bae0fd;
+  --color-brand-300: #7cc8fb;
+  --color-brand-400: #38abf8;
+  --color-brand-500: #0e8fe7;
+  --color-brand-600: #0271c7;
+  --color-brand-700: #035aa2;
+  --color-brand-800: #074c85;
+  --color-brand-900: #0c406f;
+  --color-brand-950: #082949;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #fcfcfd;
+  --foreground: #101828;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(210,100%,98%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 100%, hsla(210,100%,98%,1) 0, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Custom Grid Background to fill empty space */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+}
+
+/* Refined typography */
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+/* Custom Range Input Styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #f2f4f7;
+  border-radius: 10px;
+  background-image: linear-gradient(#2563eb, #2563eb);
+  background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.1), 0 4px 8px 0 rgba(0,0,0,0.1);
+  border: 1px solid #d0d5dd;
+  transition: transform 0.1s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* Glass effect utility */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.step-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 EduCost AI — Education Financial Planning & ROI Analysis
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Express](https://img.shields.io/badge/Express-4.18-gray?style=for-the-badge&logo=express)](https://expressjs.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-5.10-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)](https://www.docker.com/)
 
-First, run the development server:
+**EduCost AI** is a professional financial planning application designed to help students understand the long-term impact of education debt. It provides real-time ROI calculations, risk assessment (Debt-to-Income ratios), and scenario simulations using a "Human-Centric" design approach.
 
+---
+
+## 🚀 The Mission
+Education is the biggest investment most people ever make, yet they often lack the tools to calculate the actual ROI. This project bridges the gap between "getting a degree" and "financial freedom" by providing clear, data-driven insights into debt burdens and career stress levels.
+
+## ✨ Key Features
+- **Interactive Financial Snapshot**: Real-time breakdown of tuition vs. living costs vs. savings.
+- **Risk Analysis Engine**: Calculates DTI (Debt-to-Income) ratios and provides "Stress Scores" based on expected career earnings.
+- **Scenario Simulator**: Dynamic adjustment of interest rates, salary growth, and placement delays with instant visual feedback.
+- **AI Financial Advisor**: An integrated GPT-powered chat assistant that understands your specific financial context.
+- **College Comparison**: Built-in database of global universities to compare investment paths.
+- **Production-Ready Auth**: Secure JWT-based authentication with auto-refreshing sessions.
+
+## 🛠 Tech Stack
+### Frontend
+- **Next.js 15 (App Router)**: For high-performance, server-side rendered React components.
+- **Zustand**: Lightweight state management for complex financial calculations.
+- **Tailwind CSS 4**: Premium styling with glassmorphism and modern typography.
+- **Recharts**: High-fidelity data visualization for ROI and debt projections.
+- **Framer Motion**: Subtle micro-interactions for a premium feel.
+
+### Backend
+- **Node.js & Express**: Clean, modular API architecture using the Module/Controller/Service pattern.
+- **Prisma ORM**: Type-safe database interactions with PostgreSQL.
+- **OpenAI API**: Context-aware AI advising.
+- **Winston & Morgan**: Production-grade logging and monitoring.
+
+### Infrastructure & DevOps
+- **Docker & Docker Compose**: Containerized environment for one-command deployment.
+- **Next.js Proxy**: Secured API routing to eliminate CORS issues and hide backend ports.
+- **CI/CD Ready**: Structured for easy deployment to Vercel/DigitalOcean.
+
+---
+
+## 🚦 Quick Start (Local Development)
+
+### 1. One-Command Setup
+This project includes a helper script to install all dependencies for both frontend and backend:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run install:all
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure Environment
+Copy the example files and add your OpenAI API key for the chat feature:
+```bash
+cp .env.local.example .env.local
+cp backend/.env.example backend/.env
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Database Migration & Seed
+Initialize the database and populate it with demo college data:
+```bash
+npm run db:migrate
+npm run db:seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Run the Project
+Start both the API and the Frontend concurrently:
+```bash
+# Terminal 1: Backend
+npm run dev:backend
 
-## Learn More
+# Terminal 2: Frontend
+npm run dev
+```
+Visit **http://localhost:3000** to explore.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🐳 Running with Docker
+If you have Docker installed, you can launch the entire stack (Postgres + Redis + Backend + Frontend) with a single command:
+```bash
+docker compose up --build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧑‍💻 Resume Highlights
+- **Architecture**: Implemented a modular backend following SoC (Separation of Concerns) principles.
+- **Financial Engineering**: Developed a robust calculation engine for EMI, ROI, and stress-score metrics.
+- **Security**: Built a secure JWT auth flow with refresh tokens and HTTP-only cookie potential.
+- **UI/UX**: Designed a professional, accessibility-compliant interface focused on clarity and data readability.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Created as a portfolio project showcasing Full-Stack Engineering excellence.*

@@ -145,7 +145,7 @@ export default function SimulationPage() {
                   <Tooltip 
                     cursor={{ fill: '#f8fafc' }}
                     contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }}
-                    formatter={(v: number) => fmt(v)} 
+                    formatter={(v) => fmt(Number(v))} 
                   />
                   <Bar dataKey="Base"     fill="#e2e8f0" radius={[6,6,0,0]} />
                   <Bar dataKey="Scenario" fill="#2563eb" radius={[6,6,0,0]} />

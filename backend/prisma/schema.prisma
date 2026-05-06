@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+enum StudentType {
+  DOMESTIC
+  INTERNATIONAL
+  ONLINE
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         Role      @default(STUDENT)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  profile         Profile?
+  reports         Report[]
+  loanSimulations LoanSimulation[]
+  chatHistories   ChatHistory[]
+
+  @@map("users")
+}
+
+model Profile {
+  id           String      @id @default(uuid())
+  userId       String      @unique @map("user_id")
+  studentType  StudentType @default(DOMESTIC) @map("student_type")
+  country      String?
+  currency     String      @default("USD")
+  familyIncome Float?      @map("family_income")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model College {
+  id             String   @id @default(uuid())
+  name           String
+  country        String
+  city           String
+  degreeTypes    String[] @map("degree_types")
+  tuitionAvg     Float    @map("tuition_avg")
+  placementRate  Float    @map("placement_rate")
+  avgSalary      Float    @map("avg_salary")
+  ranking        Int?
+  tags           String[]
+  currency       String   @default("USD")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("colleges")
+}
+
+model Report {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  title       String
+  type        String
+  payloadJson Json     @map("payload_json")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+model LoanSimulation {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  inputsJson  Json     @map("inputs_json")
+  outputsJson Json     @map("outputs_json")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("loan_simulations")
+}
+
+model ChatHistory {
+  id           String   @id @default(uuid())
+  userId       String   @map("user_id")
+  messagesJson Json     @map("messages_json")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("chat_histories")
+}

@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { useStore } from "@/store/useStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import { MetricCard } from "@/components/ui/MetricCard";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
@@ -12,8 +14,15 @@ const COLORS = ["#2563EB", "#7C3AED", "#059669", "#D97706"];
 
 export default function SnapshotPage() {
   const router = useRouter();
-  const { userData, simulationParams, getCalculations } = useStore();
+  const { userData, simulationParams, getCalculations, saveSimulation, isSaving } = useStore();
+  const { user } = useAuthStore();
   const calc = getCalculations();
+
+  // Persist to backend once on mount (fire-and-forget if logged in)
+  useEffect(() => {
+    saveSimulation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const chartData = [
     { name: "Tuition (4yr)",    value: calc.totalTuition },
@@ -89,7 +98,7 @@ export default function SnapshotPage() {
                 </Pie>
                 <Tooltip 
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                  formatter={(v: number) => fmt(v)} 
+                  formatter={(v) => fmt(Number(v))} 
                 />
                 <Legend iconType="circle" />
               </PieChart>

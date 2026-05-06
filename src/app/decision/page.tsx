@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/store/useStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import { ComparisonTable } from "@/components/ui/ComparisonTable";
 import { InsightCard } from "@/components/ui/InsightCard";
 import { RiskBadge } from "@/components/ui/RiskBadge";
@@ -43,8 +45,26 @@ function calcAlternative(tuitionYearly: number, savings: number, salary: number)
 
 export default function DecisionPage() {
   const router = useRouter();
-  const { userData, getCalculations } = useStore();
+  const { userData, getCalculations, saveReport, isSaving, lastSavedAt } = useStore();
+  const { user } = useAuthStore();
   const calc = getCalculations();
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+
+  const handleExport = async () => {
+    if (user) {
+      setSaveStatus('saving');
+      try {
+        await saveReport(`${userData.course || 'Education'} Financial Report`);
+        setSaveStatus('saved');
+        setTimeout(() => setSaveStatus('idle'), 3000);
+      } catch {
+        setSaveStatus('error');
+        setTimeout(() => setSaveStatus('idle'), 3000);
+      }
+    } else {
+      window.print();
+    }
+  };
 
   const alts = ALTERNATIVES.map((a) => ({
     ...a,
@@ -187,10 +207,14 @@ export default function DecisionPage() {
           Refine Scenarios
         </Button>
         <Button
-          onClick={() => window.print()}
+          onClick={handleExport}
+          disabled={saveStatus === 'saving'}
           className="w-full sm:w-auto px-10 shadow-xl shadow-blue-500/20"
         >
-          Export Full Report
+          {saveStatus === 'saving' ? 'Saving…' :
+           saveStatus === 'saved' ? '✓ Report Saved!' :
+           saveStatus === 'error' ? 'Save Failed' :
+           user ? 'Save Report →' : 'Export (Print)'}
         </Button>
       </div>
     </div>

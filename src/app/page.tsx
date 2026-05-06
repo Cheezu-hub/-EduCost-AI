@@ -61,7 +61,7 @@ export default function SetupPage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Plan Your Education</h1>
         <p className="text-gray-500 text-lg max-w-lg mx-auto leading-relaxed">
-          Answer a few quick questions to see your financial reality and loan risk.
+          See your financial reality and loan risk. <span className="text-blue-600 font-bold">No account needed to start.</span>
         </p>
       </div>
 

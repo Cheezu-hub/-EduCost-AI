@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { useEffect } from "react";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,6 +13,14 @@ export const metadata: Metadata = {
     "Understand education costs, loan burden, and financial risk with clarity. Make smarter decisions about your college investment.",
 };
 
+function ClientInit() {
+  const init = useAuthStore((s) => s.init);
+  useEffect(() => {
+    init();
+  }, [init]);
+  return null;
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -19,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-gray-50 min-h-screen text-gray-900 relative overflow-x-hidden`}>
+        <ClientInit />
         {/* Decorative Background Elements to fill empty space */}
         <div className="fixed inset-0 bg-grid opacity-[0.4] pointer-events-none" />
         <div className="fixed top-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-100/30 blur-[120px] rounded-full pointer-events-none" />

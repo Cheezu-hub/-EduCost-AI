@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid,
 } from "recharts";
-import { useStore } from "@/store/useStore";
+import { useStore, LIVING_COSTS } from "@/store/useStore";
 import { FormSlider } from "@/components/ui/FormInputs";
 import { MetricCard } from "@/components/ui/MetricCard";
 import { RiskBadge } from "@/components/ui/RiskBadge";
@@ -20,8 +20,8 @@ export default function SimulationPage() {
 
   // Base calculations (no simulation adjustments)
   const baseCalc = (() => {
-    const living = userData.livingStyle === "low" ? 10000 : userData.livingStyle === "medium" ? 15000 : 25000;
-    const totalCost = userData.tuition * 4 + living * 4 + 5000;
+    const living = LIVING_COSTS[userData.livingStyle];
+    const totalCost = userData.tuition * 4 + living * 4 + 50000;
     const loan = Math.max(0, totalCost - userData.savings);
     const r = 0.055 / 12;
     const n = 120;
@@ -141,7 +141,7 @@ export default function SimulationPage() {
                 <BarChart data={chartData} barCategoryGap="25%" barGap={8}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
                   <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 11, fontWeight: 600, fill: '#94a3b8' }} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fontWeight: 600, fill: '#94a3b8' }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fontWeight: 600, fill: '#94a3b8' }} tickFormatter={(v) => `₹${(v / 100000).toFixed(1)}L`} />
                   <Tooltip 
                     cursor={{ fill: '#f8fafc' }}
                     contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }}

@@ -66,14 +66,15 @@ npm run db:seed
 ```
 
 ### 4. Run the Project
-Start both the API and the Frontend concurrently:
+Start both the API and the Frontend concurrently with a single command:
 ```bash
-# Terminal 1: Backend
-npm run dev:backend
-
-# Terminal 2: Frontend
-npm run dev
+npm run dev:all
 ```
+
+Alternatively, run them in separate terminals:
+- **Backend**: `npm run dev:backend`
+- **Frontend**: `npm run dev`
+
 Visit **http://localhost:3000** to explore.
 
 ---
@@ -81,7 +82,12 @@ Visit **http://localhost:3000** to explore.
 ## 🐳 Running with Docker
 If you have Docker installed, you can launch the entire stack (Postgres + Redis + Backend + Frontend) with a single command:
 ```bash
-docker compose up --build
+docker-compose up --build
+```
+
+**Note on Database**: If you are running the backend locally (via `npm run dev:backend`), make sure the database container is running first:
+```bash
+docker-compose up -d db
 ```
 
 ---

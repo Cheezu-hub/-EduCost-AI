@@ -100,8 +100,8 @@ async function main() {
         create: {
           studentType: 'INTERNATIONAL',
           country: 'India',
-          currency: 'USD',
-          familyIncome: 25000,
+          currency: 'INR',
+          familyIncome: 1500000,
         },
       },
     },

@@ -15,24 +15,24 @@ import { cn } from "@/lib/utils";
 
 const ALTERNATIVES = [
   {
-    name: "Community College (2yr transfer)",
-    tuitionYearly: 4000,
-    description: "2 years community college then transfer to 4-yr university",
-  },
-  {
-    name: "Online Degree Program",
-    tuitionYearly: 7000,
-    description: "Accredited online program with lower residency cost",
-  },
-  {
-    name: "In-State Public University",
+    name: "Distance Learning / IGNOU",
     tuitionYearly: 10000,
-    description: "Attend in-state to reduce tuition significantly",
+    description: "Highly affordable distance programs for foundational courses",
+  },
+  {
+    name: "State Government College",
+    tuitionYearly: 40000,
+    description: "Quality education with significant state subsidies",
+  },
+  {
+    name: "In-State Private College",
+    tuitionYearly: 150000,
+    description: "Attend locally to eliminate high residency and travel costs",
   },
 ];
 
 function calcAlternative(tuitionYearly: number, savings: number, salary: number) {
-  const totalCost = tuitionYearly * 4 + 10000 * 4 + 5000; // medium living assumed
+  const totalCost = tuitionYearly * 4 + 240000 * 4 + 50000; // medium living (2.4L/yr) + 50k misc
   const loan = Math.max(0, totalCost - savings);
   const r = 0.055 / 12;
   const n = 120;
@@ -180,12 +180,12 @@ export default function DecisionPage() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <InsightCard
           title="Debt is a Weight"
-          body="Every $10,000 less in loans saves you roughly $1,250 in interest. That's a year of car payments or a head start on a home."
+          body="Every ₹1,00,000 less in loans saves you roughly ₹15,000 in interest per year. That's a month's salary or a head start on an emergency fund."
           variant="info"
         />
         <InsightCard
           title="Free Money First"
-          body="Scholarships are your best friend. Even a $1,000 grant reduces your loan principal and compounds your savings."
+          body="Scholarships are your best friend. Even a ₹50,000 grant reduces your loan principal and compounds your savings over time."
           variant="default"
         />
         {calc.riskLevel === "Risky" && (

@@ -206,7 +206,7 @@ export default function SetupPage() {
           </CardContent>
 
           <div className="px-8 pb-10 flex justify-between gap-4">
-            <Button variant="secondary" onClick={back} disabled={step === 0} className="flex-1 lg:flex-none border border-white/10 text-gray-300 hover:text-white hover:bg-white/10">
+            <Button variant="secondary" onClick={back} disabled={step === 0} className="flex-1 lg:flex-none">
               Back
             </Button>
             <Button onClick={next} className="flex-[2] lg:flex-none lg:px-12 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all active:scale-95">

@@ -8,9 +8,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses = {
-  primary:   "bg-blue-600 text-white hover:bg-blue-700 border border-blue-600",
-  secondary: "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50",
-  ghost:     "bg-transparent text-gray-600 hover:bg-gray-100 border border-transparent",
+  primary:   "bg-blue-600 text-white hover:bg-blue-500 border border-blue-500 shadow-lg shadow-blue-500/20",
+  secondary: "bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 hover:text-white",
+  ghost:     "bg-transparent text-gray-400 hover:bg-white/5 hover:text-white border border-transparent",
 };
 
 const sizeClasses = {

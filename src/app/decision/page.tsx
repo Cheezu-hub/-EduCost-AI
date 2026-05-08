@@ -199,7 +199,7 @@ export default function DecisionPage() {
 
       {/* Actions */}
       <div className="flex flex-col sm:flex-row items-center gap-4 pt-6">
-        <Button onClick={() => router.push("/")} variant="ghost" className="w-full sm:w-auto text-gray-400 hover:text-gray-900">
+        <Button onClick={() => router.push("/")} variant="ghost" className="w-full sm:w-auto">
           ← Start Over
         </Button>
         <div className="flex-1" />

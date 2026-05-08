@@ -16,14 +16,14 @@ export type SimulationParams = {
   placementDelayMonths: number;
 };
 
-// Living cost map
-const LIVING_COSTS = { low: 10000, medium: 15000, high: 25000 } as const;
+// Living cost map (Yearly)
+export const LIVING_COSTS = { low: 120000, medium: 240000, high: 480000 } as const;
 
 // Monthly rent/food/transport breakdown per living style (used for backend calls)
-const LIVING_BREAKDOWN = {
-  low:    { rent: 650,  food: 300,  transport: 50,  insurance: 80  },
-  medium: { rent: 1000, food: 400,  transport: 100, insurance: 100 },
-  high:   { rent: 1800, food: 700,  transport: 200, insurance: 150 },
+export const LIVING_BREAKDOWN = {
+  low:    { rent: 5000,  food: 3000, transport: 1000, insurance: 1000 },
+  medium: { rent: 12000, food: 5000, transport: 2000, insurance: 1000 },
+  high:   { rent: 25000, food: 10000, transport: 4000, insurance: 1000 },
 } as const;
 
 interface AppState {
@@ -62,7 +62,7 @@ function computeLocal(userData: UserData, simulationParams: SimulationParams): L
   const livingCostYearly = LIVING_COSTS[userData.livingStyle];
   const totalLiving = livingCostYearly * 4;
   const totalTuition = userData.tuition * 4;
-  const misc = 5000;
+  const misc = 50000;
   const totalCost = totalLiving + totalTuition + misc;
   const loanRequired = Math.max(0, totalCost - userData.savings);
 
@@ -100,11 +100,11 @@ function computeLocal(userData: UserData, simulationParams: SimulationParams): L
 
 export const useStore = create<AppState>((set, get) => ({
   userData: {
-    course: '',
-    tuition: 40000,
+    course: 'Engineering (State)',
+    tuition: 150000,
     livingStyle: 'medium',
-    savings: 5000,
-    expectedSalary: 60000,
+    savings: 100000, // 1 Lakh
+    expectedSalary: 1200000, // 12 Lakhs per year
   },
   setUserData: (data) =>
     set((state) => ({ userData: { ...state.userData, ...data } })),

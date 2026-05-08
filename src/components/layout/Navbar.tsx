@@ -43,6 +43,7 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-label={`Go to ${item.label}`}
                 className={cn(
                   "px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200",
                   pathname === item.href

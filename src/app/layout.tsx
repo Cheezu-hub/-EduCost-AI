@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
-import { useEffect } from "react";
-import { useAuthStore } from "@/store/useAuthStore";
+import { ClientInit } from "@/components/layout/ClientInit";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,13 +12,6 @@ export const metadata: Metadata = {
     "Understand education costs, loan burden, and financial risk with clarity. Make smarter decisions about your college investment.",
 };
 
-function ClientInit() {
-  const init = useAuthStore((s) => s.init);
-  useEffect(() => {
-    init();
-  }, [init]);
-  return null;
-}
 
 export default function RootLayout({
   children,

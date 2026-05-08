@@ -19,21 +19,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-gray-50 min-h-screen text-gray-900 relative overflow-x-hidden`}>
+    <html lang="en" className="dark">
+      <body className={`${inter.className} bg-[#09090b] min-h-screen text-gray-100 relative overflow-x-hidden antialiased`}>
         <ClientInit />
-        {/* Decorative Background Elements to fill empty space */}
-        <div className="fixed inset-0 bg-grid opacity-[0.4] pointer-events-none" />
-        <div className="fixed top-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-100/30 blur-[120px] rounded-full pointer-events-none" />
-        <div className="fixed bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-100/30 blur-[120px] rounded-full pointer-events-none" />
+        {/* Premium Dark Background Elements */}
+        <div className="fixed inset-0 bg-grid opacity-[0.2] pointer-events-none" />
+        <div className="fixed top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-900/20 blur-[150px] rounded-full pointer-events-none" />
+        <div className="fixed bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-900/20 blur-[150px] rounded-full pointer-events-none" />
         
         <div className="relative z-10 flex flex-col min-h-screen">
           <Navbar />
           <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-12">
             {children}
           </main>
-          <footer className="py-8 text-center text-sm text-gray-400 border-t border-gray-100/50 bg-white/50 backdrop-blur-sm">
-            © 2026 EduCost AI • Simple. Clear. Human.
+          <footer className="py-8 text-center text-sm text-gray-500 border-t border-white/5 bg-black/20 backdrop-blur-md">
+            © 2026 EduCost AI • Premium Financial Intelligence.
           </footer>
         </div>
       </body>

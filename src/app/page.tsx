@@ -13,16 +13,13 @@ import { cn } from "@/lib/utils";
 const STEPS = ["College & Course", "Costs", "Income & Savings", "Review"];
 
 const COURSE_PRESETS: Record<string, number> = {
-  "Computer Science (State)":         12000,
-  "Computer Science (Private)":       45000,
-  "Business Administration (State)":  10000,
-  "Business Administration (Private)":38000,
-  "Medicine (State)":                 25000,
-  "Medicine (Private)":               55000,
-  "Law (State)":                      18000,
-  "Law (Private)":                    42000,
-  "Engineering (State)":              14000,
-  "Engineering (Private)":            40000,
+  "Engineering (State)":              150000,
+  "Engineering (Private)":            450000,
+  "Medical (MBBS)":                   800000,
+  "Business (MBA)":                   600000,
+  "Arts / Science (State)":           50000,
+  "Arts / Science (Private)":         150000,
+  "Law (LLB)":                        250000,
   "Custom":                           0,
 };
 
@@ -31,7 +28,7 @@ export default function SetupPage() {
   const { userData, setUserData } = useStore();
 
   const [step, setStep] = useState(0);
-  const [course, setCourse] = useState(userData.course || "Computer Science (State)");
+  const [course, setCourse] = useState(userData.course || "Engineering (State)");
   const [useCustomTuition, setUseCustomTuition] = useState(false);
 
   const computedTuition = useCustomTuition ? userData.tuition : (COURSE_PRESETS[course] ?? 0);
@@ -93,7 +90,7 @@ export default function SetupPage() {
                   <div>
                     <p className="text-xs text-blue-600/60 font-bold uppercase tracking-widest mb-1">Estimated Tuition</p>
                     <p className="text-2xl font-black text-blue-800 tracking-tight">
-                      ${COURSE_PRESETS[course]?.toLocaleString()}
+                      {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(COURSE_PRESETS[course])}
                       <span className="text-sm font-bold text-blue-600/40 ml-1">/year</span>
                     </p>
                   </div>
@@ -108,7 +105,7 @@ export default function SetupPage() {
               {useCustomTuition && (
                 <FormInput
                   id="tuition-input"
-                  label="Annual Tuition ($)"
+                  label="Annual Tuition (₹)"
                   type="number"
                   min={0}
                   value={userData.tuition}
@@ -129,14 +126,14 @@ export default function SetupPage() {
                   setUserData({ livingStyle: e.target.value as "low" | "medium" | "high" })
                 }
                 options={[
-                  { value: "low",    label: "Low  (~$10,000/yr)  – shared housing, cook at home" },
-                  { value: "medium", label: "Medium (~$15,000/yr) – avg. apartment, normal spend" },
-                  { value: "high",   label: "High  (~$25,000/yr) – own place, dining out, extras" },
+                  { value: "low",    label: "Low  (~₹1,20,000/yr) – shared PG, local transport" },
+                  { value: "medium", label: "Medium (~₹2,40,000/yr) – decent room, normal spend" },
+                  { value: "high",   label: "High  (~₹4,80,000/yr) – private flat, lifestyle extras" },
                 ]}
               />
               <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
                 <p className="text-xs text-gray-400 font-medium leading-relaxed italic text-center">
-                  "We calculate costs over 4 years. Miscellaneous (books, transport, etc.) is set at $5,000 total."
+                  "We calculate costs over 4 years. Miscellaneous (books, transport, etc.) is set at ₹50,000 total."
                 </p>
               </div>
             </div>
@@ -145,22 +142,22 @@ export default function SetupPage() {
           {step === 2 && (
             <div className="space-y-10">
               <FormSlider
-                label="Savings / Scholarships ($)"
+                label="Savings / Scholarships (₹)"
                 min={0}
-                max={100000}
-                step={500}
+                max={2000000}
+                step={10000}
                 value={userData.savings}
                 onChange={(v) => setUserData({ savings: v })}
-                format={(v) => `$${v.toLocaleString()}`}
+                format={(v) => `₹${v.toLocaleString('en-IN')}`}
               />
               <FormSlider
-                label="Expected Starting Salary ($/yr)"
-                min={20000}
-                max={200000}
-                step={1000}
+                label="Expected Starting Salary (₹/yr)"
+                min={200000}
+                max={5000000}
+                step={50000}
                 value={userData.expectedSalary}
                 onChange={(v) => setUserData({ expectedSalary: v })}
-                format={(v) => `$${v.toLocaleString()}`}
+                format={(v) => `₹${v.toLocaleString('en-IN')}`}
               />
             </div>
           )}
@@ -169,10 +166,10 @@ export default function SetupPage() {
             <div className="space-y-4">
               {[
                 { label: "Program", val: course },
-                { label: "Annual Tuition", val: `$${computedTuition.toLocaleString()}` },
+                { label: "Annual Tuition", val: new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(computedTuition) },
                 { label: "Living Style", val: userData.livingStyle, class: "capitalize" },
-                { label: "Savings / Aid", val: `$${userData.savings.toLocaleString()}` },
-                { label: "Expected Salary", val: `$${userData.expectedSalary.toLocaleString()}/yr` }
+                { label: "Savings / Aid", val: new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(userData.savings) },
+                { label: "Expected Salary", val: `${new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(userData.expectedSalary)}/yr` }
               ].map((row, i) => (
                 <div key={i} className="flex justify-between items-center py-4 px-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
                   <span className="text-gray-400 font-bold text-xs uppercase tracking-widest">{row.label}</span>
